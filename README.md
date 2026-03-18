@@ -1,1 +1,3 @@
 # Curiosity
+
+By Shaurya Dosapati
