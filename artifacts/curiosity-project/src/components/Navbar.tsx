@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
-import { Sparkles, Menu, X } from "lucide-react";
+import { BookOpen, Menu, X } from "lucide-react";
 import { useState } from "react";
 
 export function Navbar() {
@@ -15,13 +15,13 @@ export function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full glass-panel border-b-0 border-b-border/40">
+    <header className="sticky top-0 z-50 w-full bg-white border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="bg-primary text-primary-foreground p-1.5 rounded-lg group-hover:rotate-12 transition-transform duration-300">
-            <Sparkles className="w-5 h-5" />
+          <div className="text-primary p-1">
+            <BookOpen className="w-6 h-6" />
           </div>
-          <span className="font-display font-bold text-xl tracking-tight text-foreground">
+          <span className="font-bold text-xl tracking-tight text-foreground">
             The Curiosity Project
           </span>
         </Link>
@@ -33,19 +33,19 @@ export function Navbar() {
               key={link.href} 
               href={link.href}
               className={cn(
-                "text-sm font-medium transition-colors hover:text-primary relative py-1",
-                location === link.href ? "text-primary" : "text-muted-foreground"
+                "text-sm font-semibold transition-colors hover:text-primary relative py-5",
+                location === link.href ? "text-primary" : "text-foreground"
               )}
             >
               {link.label}
               {location === link.href && (
-                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary rounded-full" />
+                <span className="absolute bottom-0 left-0 w-full h-1 bg-primary" />
               )}
             </Link>
           ))}
           <Link 
             href="/contact"
-            className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-5 py-2 rounded-full font-semibold shadow-md shadow-secondary/20 hover:shadow-lg transition-all hover:-translate-y-0.5 text-sm"
+            className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2.5 rounded-md font-semibold transition-colors text-sm"
           >
             Donate
           </Link>
@@ -62,7 +62,7 @@ export function Navbar() {
 
       {/* Mobile Nav */}
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-16 left-0 w-full bg-background border-b border-border p-4 shadow-xl">
+        <div className="md:hidden absolute top-16 left-0 w-full bg-white border-b border-border p-4 shadow-md">
           <nav className="flex flex-col gap-4">
             {links.map((link) => (
               <Link 
@@ -70,8 +70,8 @@ export function Navbar() {
                 href={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={cn(
-                  "text-lg font-medium p-2 rounded-lg transition-colors",
-                  location === link.href ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-muted"
+                  "text-lg font-semibold p-2 transition-colors",
+                  location === link.href ? "text-primary border-l-4 border-primary pl-4" : "text-foreground hover:bg-muted"
                 )}
               >
                 {link.label}
@@ -80,7 +80,7 @@ export function Navbar() {
             <Link 
               href="/contact"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="bg-secondary text-secondary-foreground p-3 rounded-xl font-semibold text-center mt-2 shadow-md"
+              className="bg-primary text-primary-foreground p-3 rounded-md font-semibold text-center mt-2"
             >
               Donate Now
             </Link>

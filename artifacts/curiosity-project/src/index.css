@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -38,8 +38,8 @@
   --color-sidebar-foreground: hsl(var(--sidebar-foreground));
   --color-sidebar-border: hsl(var(--sidebar-border));
 
-  --font-sans: 'DM Sans', sans-serif;
-  --font-display: 'Outfit', sans-serif;
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Inter', sans-serif;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -50,46 +50,87 @@
 }
 
 :root {
-  /* Warm, hopeful, community-driven palette */
-  --background: 40 33% 98%;      /* Warm pearl */
-  --foreground: 20 40% 15%;      /* Deep brown/grey */
+  --background: 0 0% 100%;
+  --foreground: 220 25% 12%;
   
   --card: 0 0% 100%;
-  --card-foreground: 20 40% 15%;
-  --card-border: 40 20% 90%;
+  --card-foreground: 220 25% 12%;
+  --card-border: 214 20% 90%;
 
   --popover: 0 0% 100%;
-  --popover-foreground: 20 40% 15%;
-  --popover-border: 40 20% 90%;
+  --popover-foreground: 220 25% 12%;
+  --popover-border: 214 20% 90%;
 
-  /* Primary: Terracotta / Warm Orange */
-  --primary: 15 80% 55%;
+  --primary: 145 55% 28%;
   --primary-foreground: 0 0% 100%;
   
-  /* Secondary: Sage Green */
-  --secondary: 150 35% 45%;
+  --secondary: 195 60% 28%;
   --secondary-foreground: 0 0% 100%;
   
-  /* Muted: Soft sand */
-  --muted: 40 25% 93%;
-  --muted-foreground: 20 20% 45%;
+  --muted: 210 20% 96%;
+  --muted-foreground: 215 20% 45%;
   
-  /* Accent: Sunny Yellow/Gold */
-  --accent: 42 90% 55%;
-  --accent-foreground: 20 40% 15%;
+  --accent: 38 92% 50%;
+  --accent-foreground: 220 25% 12%;
+  
+  --destructive: 0 84% 45%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 214 20% 90%;
+  --input: 214 20% 88%;
+  --ring: 145 55% 28%;
+
+  --sidebar: 0 0% 98%;
+  --sidebar-foreground: 220 25% 12%;
+  --sidebar-border: 214 20% 90%;
+  --sidebar-primary: 145 55% 28%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 145 45% 94%;
+  --sidebar-accent-foreground: 145 55% 28%;
+  --sidebar-ring: 145 55% 28%;
+
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: 222 35% 8%;
+  --foreground: 210 25% 92%;
+  
+  --card: 222 35% 10%;
+  --card-foreground: 210 25% 92%;
+  --card-border: 215 25% 20%;
+
+  --popover: 222 35% 10%;
+  --popover-foreground: 210 25% 92%;
+  --popover-border: 215 25% 20%;
+
+  --primary: 145 55% 45%;
+  --primary-foreground: 222 35% 8%;
+  
+  --secondary: 195 60% 45%;
+  --secondary-foreground: 222 35% 8%;
+  
+  --muted: 215 25% 15%;
+  --muted-foreground: 210 20% 65%;
+  
+  --accent: 38 92% 60%;
+  --accent-foreground: 222 35% 8%;
   
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
 
-  --border: 40 20% 88%;
-  --input: 40 20% 88%;
-  --ring: 15 80% 55%;
+  --border: 215 25% 20%;
+  --input: 215 25% 20%;
+  --ring: 145 55% 45%;
 
-  --sidebar: 35 30% 96%;
-  --sidebar-foreground: 20 40% 15%;
-  --sidebar-border: 40 20% 88%;
-
-  --radius: 0.75rem;
+  --sidebar: 222 35% 10%;
+  --sidebar-foreground: 210 25% 92%;
+  --sidebar-border: 215 25% 20%;
+  --sidebar-primary: 145 55% 45%;
+  --sidebar-primary-foreground: 222 35% 8%;
+  --sidebar-accent: 215 25% 15%;
+  --sidebar-accent-foreground: 210 25% 92%;
+  --sidebar-ring: 145 55% 45%;
 }
 
 @layer base {
@@ -99,20 +140,13 @@
 
   body {
     @apply font-sans antialiased bg-background text-foreground;
-    background-image: url('/images/pattern-bg.png');
-    background-blend-mode: multiply;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-display);
     @apply font-bold tracking-tight text-foreground;
   }
 }
 
-.glass-panel {
-  @apply bg-white/70 backdrop-blur-md border border-white/50 shadow-xl shadow-black/5;
-}
-
-.hover-lift {
-  @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+.section-band {
+  @apply bg-primary text-primary-foreground py-16 w-full;
 }

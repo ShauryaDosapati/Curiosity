@@ -13,63 +13,62 @@ export function Sidebar() {
       value: stats?.studentsServed, 
       icon: Users,
       color: "text-primary",
-      bg: "bg-primary/10"
+      borderColor: "border-primary"
     },
     { 
       label: "Active Volunteers", 
       value: stats?.volunteersActive, 
       icon: HeartHandshake,
       color: "text-secondary",
-      bg: "bg-secondary/10"
+      borderColor: "border-secondary"
     },
     { 
       label: "Programs Running", 
       value: stats?.programsRunning, 
       icon: BookOpen,
       color: "text-accent",
-      bg: "bg-accent/20"
+      borderColor: "border-accent"
     },
     { 
       label: "Communities Reached", 
       value: stats?.communitiesReached, 
       icon: MapPin,
       color: "text-primary",
-      bg: "bg-primary/10"
+      borderColor: "border-primary"
     },
     { 
       label: "Hours of Instruction", 
       value: stats?.hoursOfInstruction, 
       icon: Clock,
       color: "text-secondary",
-      bg: "bg-secondary/10"
+      borderColor: "border-secondary"
     },
     { 
       label: "Years of Impact", 
       value: stats?.yearsOfImpact, 
       icon: CalendarDays,
       color: "text-accent",
-      bg: "bg-accent/20"
+      borderColor: "border-accent"
     },
   ];
 
   return (
-    <aside className="w-full lg:w-80 lg:min-h-[calc(100vh-4rem)] lg:sticky lg:top-16 bg-sidebar border-l border-sidebar-border p-6 shadow-[-10px_0_30px_-15px_rgba(0,0,0,0.05)] z-10">
+    <aside className="w-full lg:w-80 lg:min-h-[calc(100vh-4rem)] lg:sticky lg:top-16 bg-sidebar border-l border-border p-6 z-10">
       <div className="flex flex-col h-full">
-        <div className="mb-8">
-          <h2 className="text-2xl font-display font-bold text-foreground relative inline-block">
+        <div className="mb-8 pl-4 border-l-4 border-primary">
+          <h2 className="text-2xl font-bold text-foreground">
             Our Impact
-            <span className="absolute -bottom-2 left-0 w-12 h-1 bg-primary rounded-full"></span>
           </h2>
-          <p className="text-muted-foreground mt-4 text-sm">
-            Live numbers showcasing the difference we're making together every single day.
+          <p className="text-muted-foreground mt-2 text-sm">
+            Live numbers showcasing the difference we're making together.
           </p>
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-1 gap-4 lg:gap-6 flex-1">
           {isLoading ? (
             Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="flex items-center gap-4 p-4 rounded-2xl bg-card border border-border/50">
-                <Skeleton className="w-12 h-12 rounded-xl" />
+              <div key={i} className="flex items-center gap-4 p-4 rounded-lg bg-white border border-border shadow-sm">
+                <Skeleton className="w-10 h-10 rounded-md" />
                 <div className="space-y-2 flex-1">
                   <Skeleton className="h-6 w-16" />
                   <Skeleton className="h-3 w-24" />
@@ -77,24 +76,27 @@ export function Sidebar() {
               </div>
             ))
           ) : isError ? (
-            <div className="col-span-2 lg:col-span-1 p-6 text-center bg-destructive/10 text-destructive rounded-2xl border border-destructive/20">
-              <p className="text-sm font-medium">Unable to load impact stats at this time.</p>
+            <div className="col-span-2 lg:col-span-1 p-4 bg-destructive/10 text-destructive rounded-lg border border-destructive/20 text-sm">
+              Unable to load impact stats.
             </div>
           ) : (
             statItems.map((item, index) => (
               <div 
                 key={index} 
-                className="group flex flex-col lg:flex-row items-start lg:items-center gap-4 p-4 rounded-2xl bg-card border border-border/50 shadow-sm hover:shadow-md hover:border-primary/20 transition-all duration-300 hover:-translate-y-0.5"
+                className={cn(
+                  "flex flex-col lg:flex-row items-start lg:items-center gap-4 p-4 rounded-lg bg-white border border-border shadow-sm border-l-4",
+                  item.borderColor
+                )}
               >
-                <div className={cn("p-3 rounded-xl transition-colors duration-300 group-hover:scale-110", item.bg, item.color)}>
+                <div className={cn("p-2 rounded-md bg-muted", item.color)}>
                   <item.icon className="w-6 h-6" />
                 </div>
                 <div>
-                  <div className="text-2xl lg:text-3xl font-display font-bold text-foreground">
+                  <div className="text-2xl lg:text-3xl font-bold text-foreground">
                     <AnimatedCounter value={item.value || 0} />
                     {item.label === "Years of Impact" && "+"}
                   </div>
-                  <div className="text-xs lg:text-sm font-medium text-muted-foreground">
+                  <div className="text-xs lg:text-sm font-semibold text-muted-foreground uppercase tracking-wide">
                     {item.label}
                   </div>
                 </div>
@@ -104,15 +106,13 @@ export function Sidebar() {
         </div>
 
         <div className="mt-8 pt-6 border-t border-border hidden lg:block">
-          <div className="p-5 rounded-2xl bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-lg shadow-primary/25 relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-4 opacity-10">
-              <HeartHandshake className="w-24 h-24 rotate-12" />
-            </div>
-            <h3 className="font-display font-bold text-lg mb-2 relative z-10">Join the movement</h3>
-            <p className="text-primary-foreground/80 text-sm mb-4 relative z-10">
+          <div className="p-6 rounded-lg bg-primary text-primary-foreground text-center">
+            <HeartHandshake className="w-12 h-12 mx-auto mb-3 opacity-90" />
+            <h3 className="font-bold text-lg mb-2">Join the movement</h3>
+            <p className="text-primary-foreground/80 text-sm mb-6">
               Your time or resources can help us reach our next milestone.
             </p>
-            <button className="w-full bg-white text-primary font-semibold py-2.5 px-4 rounded-xl shadow-sm hover:shadow-md active:scale-95 transition-all z-10 relative">
+            <button className="w-full bg-white text-primary font-bold py-2.5 px-4 rounded-md shadow-sm hover:bg-muted transition-colors">
               Get Involved
             </button>
           </div>
