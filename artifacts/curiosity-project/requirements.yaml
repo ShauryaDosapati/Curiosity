@@ -1,0 +1,26 @@
+packages:
+  "framer-motion": "For smooth page transitions and the animated number counters in the stats sidebar"
+  "react-hook-form": "For robust form state management in Contact and Create Event forms"
+  "@hookform/resolvers": "For Zod schema validation integration with react-hook-form"
+  "date-fns": "For formatting event dates beautifully"
+  "clsx": "Utility for constructing className strings conditionally"
+  "tailwind-merge": "Utility for merging tailwind classes without style conflicts"
+
+images:
+  - path: "artifacts/curiosity-project/public/images/hero-bg.png"
+    description: "A warm, inspiring, modern stylized illustration of a diverse community gathering outdoors, soft sunlight, optimistic mood, terracotta and sage green colors"
+    aspect_ratio: "16:9"
+  - path: "artifacts/curiosity-project/public/images/about-mission.png"
+    description: "Abstract vector illustration representing growth, education, and community support in warm earthy tones with organic shapes"
+    aspect_ratio: "4:3"
+  - path: "artifacts/curiosity-project/public/images/team-placeholder.png"
+    description: "Friendly minimalist abstract avatar illustration of a diverse person smiling, warm background, suitable for a nonprofit team member"
+    aspect_ratio: "1:1"
+  - path: "artifacts/curiosity-project/public/images/pattern-bg.png"
+    description: "Subtle, very light, low opacity organic shape pattern background in warm cream and beige tones, seamless"
+    aspect_ratio: "16:9"
+
+notes:
+  - Assuming standard shadcn/ui components exist in src/components/ui/ based on directory structure.
+  - The API hooks are generated and imported from @workspace/api-client-react.
+  - Using wouter for routing.

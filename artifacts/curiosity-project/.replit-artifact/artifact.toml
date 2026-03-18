@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "The Curiosity Project"
+version = "1.0.0"
+id = "artifacts/curiosity-project"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+localPort = 24069
+name = "web"
+paths = ["/"]
+
+[services.development]
+run = "pnpm --filter @workspace/curiosity-project run dev"
+
+[services.env]
+PORT = "24069"
+BASE_PATH = "/"
+
+[services.production]
+build = ["pnpm", "--filter", "@workspace/curiosity-project", "run", "build"]
+publicDir = "artifacts/curiosity-project/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"

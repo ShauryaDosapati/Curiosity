@@ -1,15 +1,20 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: The Curiosity Project API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: stats
+    description: Organization statistics
+  - name: events
+    description: Events management
+  - name: contact
+    description: Contact form
 paths:
   /healthz:
     get:
@@ -24,6 +29,73 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /stats:
+    get:
+      operationId: getStats
+      tags: [stats]
+      summary: Get organization statistics
+      description: Returns live stats for the nonprofit
+      responses:
+        "200":
+          description: Stats retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Stats"
+
+  /events:
+    get:
+      operationId: getEvents
+      tags: [events]
+      summary: Get all events
+      description: Returns list of upcoming and past events
+      responses:
+        "200":
+          description: Events retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Event"
+    post:
+      operationId: createEvent
+      tags: [events]
+      summary: Create a new event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateEvent"
+      responses:
+        "201":
+          description: Event created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Event"
+
+  /contact:
+    post:
+      operationId: submitContact
+      tags: [contact]
+      summary: Submit a contact form message
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ContactMessage"
+      responses:
+        "201":
+          description: Message submitted successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ContactResponse"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +106,116 @@ components:
       required:
         - status
 
+    Stats:
+      type: object
+      properties:
+        studentsServed:
+          type: integer
+          description: Total number of students taught
+        volunteersActive:
+          type: integer
+          description: Active volunteers count
+        programsRunning:
+          type: integer
+          description: Number of active programs
+        communitiesReached:
+          type: integer
+          description: Number of communities reached
+        hoursOfInstruction:
+          type: integer
+          description: Total hours of instruction delivered
+        yearsOfImpact:
+          type: integer
+          description: Years the organization has been operating
+      required:
+        - studentsServed
+        - volunteersActive
+        - programsRunning
+        - communitiesReached
+        - hoursOfInstruction
+        - yearsOfImpact
+
+    Event:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        date:
+          type: string
+          format: date-time
+        location:
+          type: string
+        category:
+          type: string
+          enum: [workshop, fundraiser, community, volunteer, other]
+        isUpcoming:
+          type: boolean
+        imageUrl:
+          type: string
+          nullable: true
+      required:
+        - id
+        - title
+        - description
+        - date
+        - location
+        - category
+        - isUpcoming
+
+    CreateEvent:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        date:
+          type: string
+          format: date-time
+        location:
+          type: string
+        category:
+          type: string
+          enum: [workshop, fundraiser, community, volunteer, other]
+        imageUrl:
+          type: string
+          nullable: true
+      required:
+        - title
+        - description
+        - date
+        - location
+        - category
+
+    ContactMessage:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        subject:
+          type: string
+        message:
+          type: string
+      required:
+        - name
+        - email
+        - subject
+        - message
+
+    ContactResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+      required:
+        - success
+        - message
