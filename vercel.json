@@ -1,0 +1,10 @@
+{
+  "buildCommand": "pnpm --filter @workspace/curiosity-project run build",
+  "outputDirectory": "artifacts/curiosity-project/dist/public",
+  "installCommand": "pnpm install",
+  "framework": null,
+  "env": {
+    "PORT": "4173",
+    "BASE_PATH": "/"
+  }
+}
