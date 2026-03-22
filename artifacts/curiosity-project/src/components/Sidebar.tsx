@@ -1,55 +1,15 @@
-import { useGetStats } from "@workspace/api-client-react";
 import { Users, HeartHandshake, BookOpen, MapPin, Clock, CalendarDays } from "lucide-react";
 import { AnimatedCounter } from "./AnimatedCounter";
-import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 
 export function Sidebar() {
-  const { data: stats, isLoading, isError } = useGetStats();
-
   const statItems = [
-    { 
-      label: "Students Served", 
-      value: stats?.studentsServed, 
-      icon: Users,
-      color: "text-primary",
-      borderColor: "border-primary"
-    },
-    { 
-      label: "Active Volunteers", 
-      value: stats?.volunteersActive, 
-      icon: HeartHandshake,
-      color: "text-secondary",
-      borderColor: "border-secondary"
-    },
-    { 
-      label: "Programs Running", 
-      value: stats?.programsRunning, 
-      icon: BookOpen,
-      color: "text-accent",
-      borderColor: "border-accent"
-    },
-    { 
-      label: "Communities Reached", 
-      value: stats?.communitiesReached, 
-      icon: MapPin,
-      color: "text-primary",
-      borderColor: "border-primary"
-    },
-    { 
-      label: "Hours of Instruction", 
-      value: stats?.hoursOfInstruction, 
-      icon: Clock,
-      color: "text-secondary",
-      borderColor: "border-secondary"
-    },
-    { 
-      label: "Years of Impact", 
-      value: stats?.yearsOfImpact, 
-      icon: CalendarDays,
-      color: "text-accent",
-      borderColor: "border-accent"
-    },
+    { label: "Students Served",     value: 4820,  icon: Users,         color: "text-primary",   borderColor: "border-primary"   },
+    { label: "Active Volunteers",   value: 138,   icon: HeartHandshake, color: "text-secondary", borderColor: "border-secondary" },
+    { label: "Programs Running",    value: 12,    icon: BookOpen,       color: "text-accent",    borderColor: "border-accent"    },
+    { label: "Communities Reached", value: 27,    icon: MapPin,         color: "text-primary",   borderColor: "border-primary"   },
+    { label: "Hours of Instruction",value: 18650, icon: Clock,          color: "text-secondary", borderColor: "border-secondary" },
+    { label: "Years of Impact",     value: 8,     icon: CalendarDays,   color: "text-accent",    borderColor: "border-accent"    },
   ];
 
   return (
@@ -65,44 +25,28 @@ export function Sidebar() {
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-1 gap-4 lg:gap-6 flex-1">
-          {isLoading ? (
-            Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="flex items-center gap-4 p-4 rounded-lg bg-white border border-border shadow-sm">
-                <Skeleton className="w-10 h-10 rounded-md" />
-                <div className="space-y-2 flex-1">
-                  <Skeleton className="h-6 w-16" />
-                  <Skeleton className="h-3 w-24" />
+          {statItems.map((item, index) => (
+            <div
+              key={index}
+              className={cn(
+                "flex flex-col lg:flex-row items-start lg:items-center gap-4 p-4 rounded-lg bg-white border border-border shadow-sm border-l-4",
+                item.borderColor
+              )}
+            >
+              <div className={cn("p-2 rounded-md bg-muted", item.color)}>
+                <item.icon className="w-6 h-6" />
+              </div>
+              <div>
+                <div className="text-2xl lg:text-3xl font-bold text-foreground">
+                  <AnimatedCounter value={item.value} />
+                  {item.label === "Years of Impact" && "+"}
+                </div>
+                <div className="text-xs lg:text-sm font-semibold text-muted-foreground uppercase tracking-wide">
+                  {item.label}
                 </div>
               </div>
-            ))
-          ) : isError ? (
-            <div className="col-span-2 lg:col-span-1 p-4 bg-destructive/10 text-destructive rounded-lg border border-destructive/20 text-sm">
-              Unable to load impact stats.
             </div>
-          ) : (
-            statItems.map((item, index) => (
-              <div 
-                key={index} 
-                className={cn(
-                  "flex flex-col lg:flex-row items-start lg:items-center gap-4 p-4 rounded-lg bg-white border border-border shadow-sm border-l-4",
-                  item.borderColor
-                )}
-              >
-                <div className={cn("p-2 rounded-md bg-muted", item.color)}>
-                  <item.icon className="w-6 h-6" />
-                </div>
-                <div>
-                  <div className="text-2xl lg:text-3xl font-bold text-foreground">
-                    <AnimatedCounter value={item.value || 0} />
-                    {item.label === "Years of Impact" && "+"}
-                  </div>
-                  <div className="text-xs lg:text-sm font-semibold text-muted-foreground uppercase tracking-wide">
-                    {item.label}
-                  </div>
-                </div>
-              </div>
-            ))
-          )}
+          ))}
         </div>
 
         <div className="mt-8 pt-6 border-t border-border hidden lg:block">
