@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Layout } from "@/components/Layout";
-import { Mail, Phone, MapPin, Send, Loader2 } from "lucide-react";
+import { Mail, Phone, Send, Loader2, Instagram } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -25,7 +25,7 @@ export default function Contact() {
 
   const onSubmit = async (data: ContactFormValues) => {
     setIsPending(true);
-    // Simulate a short delay then show success
+    // Simulate submission delay
     await new Promise((resolve) => setTimeout(resolve, 800));
     setIsPending(false);
     toast({
@@ -33,8 +33,8 @@ export default function Contact() {
       description: "Thanks for reaching out — we'll get back to you within 2 business days.",
     });
     form.reset();
-    // To wire up a real email service, replace the above with a fetch to
-    // Formspree (https://formspree.io) or EmailJS and pass `data` as the body.
+    // To wire up a real email service, replace the above with a call to
+    // Formspree (https://formspree.io) or EmailJS, passing `data` as the body.
   };
 
   return (
@@ -57,21 +57,13 @@ export default function Contact() {
             <div className="space-y-6 pt-4">
               <div className="flex items-start gap-4">
                 <div className="bg-primary/10 p-2 rounded-md text-primary mt-1">
-                  <MapPin className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-foreground mb-1">Visit Us</h4>
-                  <p className="text-muted-foreground text-sm">123 Learning Lane<br />Innovation District<br />Cityville, ST 12345</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="bg-primary/10 p-2 rounded-md text-primary mt-1">
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
                   <h4 className="font-bold text-foreground mb-1">Email Us</h4>
-                  <p className="text-muted-foreground text-sm">hello@curiosityproject.org<br />partners@curiosityproject.org</p>
+                  <a href="mailto:curiosityprojectlearning@gmail.com" className="text-primary hover:underline text-sm">
+                    curiosityprojectlearning@gmail.com
+                  </a>
                 </div>
               </div>
 
@@ -81,17 +73,28 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="font-bold text-foreground mb-1">Call Us</h4>
-                  <p className="text-muted-foreground text-sm">(555) 123-4567<br />Mon-Fri, 9am - 5pm</p>
+                  <a href="tel:6092409693" className="text-muted-foreground hover:text-primary text-sm">
+                    (609) 240-9693
+                  </a>
                 </div>
               </div>
-            </div>
 
-            <div className="p-4 bg-muted border border-border rounded-md mt-8">
-              <h4 className="font-bold text-sm mb-1 text-foreground uppercase tracking-wide">Emergency Support</h4>
-              <p className="text-sm text-muted-foreground">
-                For immediate assistance outside of normal hours, call our 24/7 hotline at{" "}
-                <span className="font-bold text-foreground">(555) 999-0000</span>.
-              </p>
+              <div className="flex items-start gap-4">
+                <div className="bg-primary/10 p-2 rounded-md text-primary mt-1">
+                  <Instagram className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-foreground mb-1">Follow Us</h4>
+                  <a
+                    href="https://www.instagram.com/thecuriosityproject2025/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline text-sm"
+                  >
+                    @thecuriosityproject2025
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
 
