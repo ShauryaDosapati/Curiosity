@@ -1,178 +1,113 @@
-import { useState } from "react";
 import { Layout } from "@/components/Layout";
-import { Mail, Phone, Send, Loader2, Instagram } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { useToast } from "@/hooks/use-toast";
+import { Mail, Phone, ArrowRight } from "lucide-react";
 
-const contactSchema = z.object({
-  name: z.string().min(2, "Name is required"),
-  email: z.string().email("Invalid email address"),
-  subject: z.string().min(3, "Subject is required"),
-  message: z.string().min(10, "Message is too short"),
-});
+const INSTAGRAM_DM_URL = "https://ig.me/m/thecuriosityproject2025";
+const INSTAGRAM_PROFILE_URL = "https://www.instagram.com/thecuriosityproject2025/";
 
-type ContactFormValues = z.infer<typeof contactSchema>;
+function InstagramIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+    </svg>
+  );
+}
 
 export default function Contact() {
-  const { toast } = useToast();
-  const [isPending, setIsPending] = useState(false);
-
-  const form = useForm<ContactFormValues>({
-    resolver: zodResolver(contactSchema),
-  });
-
-  const onSubmit = async (data: ContactFormValues) => {
-    setIsPending(true);
-    // Simulate submission delay
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    setIsPending(false);
-    toast({
-      title: "Message sent!",
-      description: "Thanks for reaching out — we'll get back to you within 2 business days.",
-    });
-    form.reset();
-    // To wire up a real email service, replace the above with a call to
-    // Formspree (https://formspree.io) or EmailJS, passing `data` as the body.
-  };
-
   return (
     <Layout>
-      <div className="bg-white px-4 sm:px-6 lg:px-12 py-16 border-b border-border">
-        <div className="max-w-6xl mx-auto border-l-4 border-primary pl-6">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-4">Let's Connect</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl">
-            Have questions about our programs, want to volunteer, or looking to partner? We'd love to hear from you.
+
+      {/* Hero */}
+      <div className="bg-white px-4 sm:px-6 lg:px-12 py-16 lg:py-24 border-b border-border">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-primary/10 mb-8">
+            <InstagramIcon className="w-10 h-10 text-primary" />
+          </div>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground mb-6">
+            Let's Connect
+          </h1>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            The best way to reach us is through Instagram DM. We respond quickly and love hearing from our community.
           </p>
         </div>
       </div>
 
-      <div className="bg-muted px-4 sm:px-6 lg:px-12 py-16">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-8">
+      {/* Main CTA */}
+      <div className="bg-muted px-4 sm:px-6 lg:px-12 py-20">
+        <div className="max-w-3xl mx-auto">
 
-          <div className="lg:col-span-2 space-y-8 bg-white p-8 rounded-lg border border-border shadow-sm">
-            <h3 className="text-2xl font-bold text-foreground border-b-2 border-primary pb-2 inline-block">Get in Touch</h3>
-
-            <div className="space-y-6 pt-4">
-              <div className="flex items-start gap-4">
-                <div className="bg-primary/10 p-2 rounded-md text-primary mt-1">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-foreground mb-1">Email Us</h4>
-                  <a href="mailto:curiosityprojectlearning@gmail.com" className="text-primary hover:underline text-sm">
-                    curiosityprojectlearning@gmail.com
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="bg-primary/10 p-2 rounded-md text-primary mt-1">
-                  <Phone className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-foreground mb-1">Call Us</h4>
-                  <a href="tel:6092409693" className="text-muted-foreground hover:text-primary text-sm">
-                    (609) 240-9693
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="bg-primary/10 p-2 rounded-md text-primary mt-1">
-                  <Instagram className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-foreground mb-1">Follow Us</h4>
-                  <a
-                    href="https://www.instagram.com/thecuriosityproject2025/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary hover:underline text-sm"
-                  >
-                    @thecuriosityproject2025
-                  </a>
-                </div>
-              </div>
+          {/* Primary DM card */}
+          <div className="bg-white rounded-2xl border border-border shadow-sm overflow-hidden mb-8">
+            <div className="bg-gradient-to-r from-[#f09433] via-[#e6683c] to-[#dc2743] p-8 text-white text-center">
+              <InstagramIcon className="w-12 h-12 mx-auto mb-4 opacity-90" />
+              <h2 className="text-2xl font-bold mb-2">Send us a DM</h2>
+              <p className="text-white/80">@thecuriosityproject2025</p>
+            </div>
+            <div className="p-8 text-center">
+              <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
+                Whether you have a question about our programs, want to volunteer, or are looking to partner with us — drop us a message on Instagram.
+              </p>
+              <a
+                href={INSTAGRAM_DM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 bg-primary text-primary-foreground px-10 py-4 rounded-xl font-bold text-lg hover:bg-primary/90 transition-colors shadow-sm"
+              >
+                Open Instagram DM
+                <ArrowRight className="w-5 h-5" />
+              </a>
+              <p className="text-sm text-muted-foreground mt-4">
+                Opens the Instagram app or website
+              </p>
             </div>
           </div>
 
-          <div className="lg:col-span-3">
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 bg-white p-8 rounded-lg border border-border shadow-sm">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-foreground">Your Name</label>
-                  <input
-                    {...form.register("name")}
-                    className="w-full px-4 py-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none"
-                    placeholder="Jane Doe"
-                  />
-                  {form.formState.errors.name && (
-                    <p className="text-xs text-destructive">{form.formState.errors.name.message}</p>
-                  )}
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-foreground">Email Address</label>
-                  <input
-                    {...form.register("email")}
-                    type="email"
-                    className="w-full px-4 py-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none"
-                    placeholder="jane@example.com"
-                  />
-                  {form.formState.errors.email && (
-                    <p className="text-xs text-destructive">{form.formState.errors.email.message}</p>
-                  )}
-                </div>
+          {/* Secondary contact options */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <a
+              href={INSTAGRAM_PROFILE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center gap-3 bg-white p-6 rounded-xl border border-border shadow-sm hover:border-primary hover:shadow-md transition-all group text-center"
+            >
+              <div className="bg-primary/10 p-3 rounded-full group-hover:bg-primary/20 transition-colors">
+                <InstagramIcon className="w-6 h-6 text-primary" />
               </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-bold text-foreground">Subject</label>
-                <input
-                  {...form.register("subject")}
-                  className="w-full px-4 py-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none"
-                  placeholder="How can we help?"
-                />
-                {form.formState.errors.subject && (
-                  <p className="text-xs text-destructive">{form.formState.errors.subject.message}</p>
-                )}
+              <div>
+                <p className="font-bold text-foreground text-sm">Follow Us</p>
+                <p className="text-xs text-muted-foreground mt-1">@thecuriosityproject2025</p>
               </div>
+            </a>
 
-              <div className="space-y-2">
-                <label className="text-sm font-bold text-foreground">Message</label>
-                <textarea
-                  {...form.register("message")}
-                  rows={6}
-                  className="w-full px-4 py-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none resize-none"
-                  placeholder="Tell us what's on your mind..."
-                />
-                {form.formState.errors.message && (
-                  <p className="text-xs text-destructive">{form.formState.errors.message.message}</p>
-                )}
+            <a
+              href="mailto:curiosityprojectlearning@gmail.com"
+              className="flex flex-col items-center gap-3 bg-white p-6 rounded-xl border border-border shadow-sm hover:border-primary hover:shadow-md transition-all group text-center"
+            >
+              <div className="bg-primary/10 p-3 rounded-full group-hover:bg-primary/20 transition-colors">
+                <Mail className="w-6 h-6 text-primary" />
               </div>
+              <div>
+                <p className="font-bold text-foreground text-sm">Email</p>
+                <p className="text-xs text-muted-foreground mt-1">curiosityprojectlearning<br />@gmail.com</p>
+              </div>
+            </a>
 
-              <button
-                type="submit"
-                disabled={isPending}
-                className="w-full bg-primary text-primary-foreground py-3 rounded-md font-bold text-lg hover:bg-primary/90 transition-colors disabled:opacity-50 flex justify-center items-center gap-2"
-              >
-                {isPending ? (
-                  <>
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                    Sending...
-                  </>
-                ) : (
-                  <>
-                    Send Message
-                    <Send className="w-4 h-4 ml-2" />
-                  </>
-                )}
-              </button>
-            </form>
+            <a
+              href="tel:6092409693"
+              className="flex flex-col items-center gap-3 bg-white p-6 rounded-xl border border-border shadow-sm hover:border-primary hover:shadow-md transition-all group text-center"
+            >
+              <div className="bg-primary/10 p-3 rounded-full group-hover:bg-primary/20 transition-colors">
+                <Phone className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <p className="font-bold text-foreground text-sm">Call Us</p>
+                <p className="text-xs text-muted-foreground mt-1">(609) 240-9693<br />Mon–Fri, 9am–5pm</p>
+              </div>
+            </a>
           </div>
 
         </div>
       </div>
+
     </Layout>
   );
 }
